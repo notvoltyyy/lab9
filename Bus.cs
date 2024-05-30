@@ -12,7 +12,7 @@ public class Bus
     public int busId;
     public int routeId;
     static int composterCount = 1;
-    public List<Composter> composterList = new List<Composter>();
+    public List<BusComposter> composterList = new List<BusComposter>();
 
     public Bus()
     {
@@ -35,7 +35,7 @@ public class Bus
     public void Print()
     {
         Console.WriteLine(ToString());
-        foreach (Composter composter in composterList)
+        foreach (BusComposter composter in composterList)
         {
             Console.WriteLine("\t" + composter.ToString());
             foreach (BusTicket ticket in composter.tickets)

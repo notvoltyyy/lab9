@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,19 @@ public abstract class Ticket
         get => _isValid;
         set { _isValid = value; }
     }
+}
+
+public sealed class PlaneTicket : Ticket, ITicket
+{
+    private string from { get; set; }
+    private string to { get; set; }
+    private bool isVip { get; set; }
+
+    public void Buy()
+    {
+        Console.WriteLine("")
+    }
+
 }
 
 public sealed class BusTicket : Ticket, ITicket //make private fields, check constructors

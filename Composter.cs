@@ -12,12 +12,29 @@ public interface IComposter
     void LoadFromFile();
 }
 
-public class Composter
+public abstract class Composter
+{
+    private int _id;
+    private string _code;
+
+    private int Id
+    {
+        get { return _id; }
+        set { if (value > 0) { _id = value; } }
+    }
+    private string Code
+    {
+        get { return _code; }
+        set { _code = value; }
+    }
+
+}
+
+public sealed class BusComposter
 {
     static private int lastId = 0;
 
-    private int id;
-    protected string code;
+    
     public List<BusTicket> tickets = new List<BusTicket>(1);
     //public Ticket ticket;
 
@@ -27,22 +44,13 @@ public class Composter
     public int processedTicketCount;
     public List<int> processedTicketId = new List<int>();
     public int workedHours;
-    private int Id
-    {
-        get { return id; }
-        set { if (value > 0) { id = value; } }
-    }
-    protected string Code
-    {
-        get { return code; }
-        set { code = value; }
-    }
+    
 
-    static Composter()
+    static BusComposter()
     {
         lastId = 0;
     }
-    public Composter()
+    public BusComposter()
     {
         id = MakeID();
         processedTicketCount = 0;
@@ -52,7 +60,7 @@ public class Composter
 
     }
 
-    public Composter(int Id, string Code, /*int ProcessedTicketCount,*/ int WorkedHours/*, int TicketCount*/) //redo
+    public BusComposter(int Id, string Code, /*int ProcessedTicketCount,*/ int WorkedHours/*, int TicketCount*/) //redo
     {
         this.code = Code;
         this.id = Id;
@@ -132,7 +140,7 @@ public class Composter
         }
     }
 
-    public Composter LoadFromFile(string fileName)
+    public BusComposter LoadFromFile(string fileName)
     {
         if (!File.Exists(fileName))
         {
@@ -143,7 +151,7 @@ public class Composter
         {
             string[] strings = File.ReadAllLines(fileName);
 
-            Composter newComposter = new Composter();
+            BusComposter newComposter = new BusComposter();
             newComposter.id = int.Parse(strings[0]);
             newComposter.code = strings[1];
             newComposter.processedTicketCount = int.Parse(strings[2]);

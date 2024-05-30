@@ -14,8 +14,8 @@ class Program
     static void Main()
     {
         Bus bus = new Bus();
-        bus.composterList.Add(new Composter());
-        bus.composterList.Add(new Composter());
+        bus.composterList.Add(new BusComposter());
+        bus.composterList.Add(new BusComposter());
         bus.composterList[0].tickets.Add(new BusTicket(1));
         bus.composterList[0].tickets.Add(new BusTicket(2));
 
@@ -23,7 +23,7 @@ class Program
         bus.composterList[1].tickets.Add(new BusTicket(2));
         bus.composterList[1].tickets.Add(new BusTicket(1));
 
-        Composter composter = new Composter();
+        BusComposter composter = new BusComposter();
 
         int choice;
 
