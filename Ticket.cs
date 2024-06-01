@@ -37,13 +37,30 @@ public abstract class Ticket
 
 public sealed class PlaneTicket : Ticket, ITicket
 {
-    private string from { get; set; }
-    private string to { get; set; }
-    private bool isVip { get; set; }
+    public string departure { get; set; }
+    public string destination { get; set; }
+    public int isVip { get; set; }
 
     public void Buy()
     {
-        Console.WriteLine("")
+        //Console.WriteLine("Input type (1 - Single Use (10 Uah), 2 - Multiuse(5 uses, 50 uah): ");
+        //Type = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Input departure: ");
+        departure = Console.ReadLine();
+        Console.WriteLine("Input destination: ");
+        destination = Console.ReadLine();
+        Console.WriteLine("Input true if you want VIP, false - if not");
+        int temp;
+        int.TryParse(Console.ReadLine(), out temp);
+        if (temp == 1 || temp == 2)
+        {
+            isVip = temp;
+        } 
+    }
+
+    public override string ToString()
+    {
+        return "Departure: " + departure + ", destination: " + destination + ", is VIP: " + isVip.ToString();
     }
 
 }

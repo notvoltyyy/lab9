@@ -6,6 +6,16 @@ using System.Threading.Tasks;
 
 class Program
 {
+    static void BuyTicket(ITicket ticket)
+    {
+        ticket.Buy();
+    }
+
+    static void PrintTicket(ITicket ticket)
+    {
+        Console.WriteLine(ticket.ToString());
+    }
+
     enum Menu
     {
         choice_LoadFromFile = 1, choice_SaveToFile, choice_Input, choice_Valiade, choice_Check, choice_Buy, choice_Print, choice_Quit
@@ -13,6 +23,14 @@ class Program
 
     static void Main()
     {
+        PlaneTicket pticket = new PlaneTicket();
+        BusTicket bticket = new BusTicket();
+
+        BuyTicket(pticket);
+        PrintTicket(pticket);
+        //BuyTicket(bticket);
+        //PrintTicket(bticket);
+
         Bus bus = new Bus();
         bus.composterList.Add(new BusComposter());
         bus.composterList.Add(new BusComposter());

@@ -8,8 +8,9 @@ public interface IComposter
     void Validate(BusTicket ticket);
     void Validate();
     void Input();
-    void SaveToFile();
-    void LoadFromFile();
+    void SaveToFile(string fileName);
+    BusComposter LoadFromFile(string fileName);
+    void BuyTicket();
 }
 
 public abstract class Composter
@@ -17,12 +18,12 @@ public abstract class Composter
     private int _id;
     private string _code;
 
-    private int Id
+    public int Id
     {
         get { return _id; }
         set { if (value > 0) { _id = value; } }
     }
-    private string Code
+    public string Code
     {
         get { return _code; }
         set { _code = value; }
@@ -30,11 +31,10 @@ public abstract class Composter
 
 }
 
-public sealed class BusComposter
+public sealed class BusComposter : Composter, IComposter
 {
     static private int lastId = 0;
 
-    
     public List<BusTicket> tickets = new List<BusTicket>(1);
     //public Ticket ticket;
 
@@ -52,18 +52,18 @@ public sealed class BusComposter
     }
     public BusComposter()
     {
-        id = MakeID();
+        Id = MakeID();
         processedTicketCount = 0;
         workedHours = 0;
         //tickets.Add(new Ticket());
-        code = "default";
+        Code = "default";
 
     }
 
     public BusComposter(int Id, string Code, /*int ProcessedTicketCount,*/ int WorkedHours/*, int TicketCount*/) //redo
     {
-        this.code = Code;
-        this.id = Id;
+        this.Code = Code;
+        this.Id = Id;
         //this.processedTicketCount = ProcessedTicketCount;
         this.workedHours = WorkedHours;
     }
@@ -126,9 +126,9 @@ public sealed class BusComposter
     public void Input()
     {
         Console.WriteLine("Input composter id: ");
-        int.TryParse(Console.ReadLine(), out id);
+        Id = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Input code: ");
-        code = Console.ReadLine();
+        Code = Console.ReadLine();
         Console.WriteLine("Enter the number of tickets: ");
         int.TryParse(Console.ReadLine(), out int size);
         if (size > 0)
@@ -152,8 +152,8 @@ public sealed class BusComposter
             string[] strings = File.ReadAllLines(fileName);
 
             BusComposter newComposter = new BusComposter();
-            newComposter.id = int.Parse(strings[0]);
-            newComposter.code = strings[1];
+            newComposter.Id = int.Parse(strings[0]);
+            newComposter.Code = strings[1];
             newComposter.processedTicketCount = int.Parse(strings[2]);
 
             //int i;
@@ -188,8 +188,8 @@ public sealed class BusComposter
 
             using (StreamWriter writer = new StreamWriter(fileName))
             {
-                writer.WriteLine(id);
-                writer.WriteLine(code);
+                writer.WriteLine(Id);
+                writer.WriteLine(Code);
                 //writer.WriteLine(currentDateTime.ToShortDateString());
                 //writer.WriteLine(startDateTime);
                 //writer.WriteLine(lastDateTime);
@@ -229,6 +229,6 @@ public sealed class BusComposter
 
     public override string ToString()
     {
-        return "Id: " + id + ", code: " + code + ", processed ticket count: " + processedTicketCount + ", worked hours: " + workedHours;
+        return "Id: " + Id + ", code: " + Code + ", processed ticket count: " + processedTicketCount + ", worked hours: " + workedHours;
     }
 }
